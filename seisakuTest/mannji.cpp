@@ -20,6 +20,7 @@ typedef enum {
 
 static int Scene = eScene_Menu;    //Œ»İ‚Ì‰æ–Ê(ƒV[ƒ“)
 
+
 void irekae(int px, int py) {
 	int Green = GetColor(0, 255, 0);
 	DrawString(0, 0, "“ü‚ê‘Ö‚í‚è‚Ü‚·", GetColor(0, 0, 0));
