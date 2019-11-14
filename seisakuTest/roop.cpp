@@ -32,6 +32,7 @@ struct Enemy {
 	int goeiX[16];		//ゴエイのX座標
 	int goeiY[16];		//ゴエイのY座標
 	int goeiatk[16];	//ゴエイの攻撃用flg
+	int goeiatk2[8];	//ゴエイのボスギャラガ護衛時の攻撃用flg
 	int bossX[4];		//ボスギャラガのX座標
 	int bossY[4];		//ボスギャラガのY座標
 	int bossatk[4];		//ボスギャラガの攻撃用flg
@@ -85,11 +86,57 @@ void Menu() {
 	DrawString(0, 0, "メニュー画面です。", GetColor(255, 255, 255));
 }
 
+void ZakoAtk() {
+	for (int i = 0; i < 20; i++) {
+		if (enemy.zakoatk[i] == 1) {
+			enemy.zakoY[i] += 1;
+		}
+	}
+}
+
+void GoeiAtk() {
+	for (int i = 0; i < 16; i++) {
+		if (enemy.goeiatk[i] == 1) {
+			enemy.goeiY[i] += 1;
+		}
+	}
+}
+
+void BossAtk() {
+	for (int i = 0; i < 4; i++) {
+		if (enemy.bossatk[i] == 1) {
+			enemy.bossY[i] += 1;
+			enemy.goeiatk2[i * 2] = 1;
+			enemy.goeiatk2[i * 2 + 1] = 1;
+		}
+		if (enemy.goeiatk2[i * 2] == 1 && enemy.goeiatk2[i * 2 + 1] == 1) {
+			enemy.goeiY[i * 2] += 1;
+			enemy.goeiY[i * 2 + 1] += 1;
+		}
+	}
+}
+
+//敵の描画
+void Draw_Enemy() {
+	for (int i = 0; i < 10; i++) {
+		DrawRotaGraph(enemy.zakoX[i], enemy.zakoY[i], 2.0f, 0, enemy.zako[0], TRUE);
+		DrawRotaGraph(enemy.zakoX[i + 10], enemy.zakoY[i + 10], 2.0f, 0, enemy.zako[0], TRUE);
+		if (i < 8) {
+			DrawRotaGraph(enemy.goeiX[i], enemy.goeiY[i], 2.0f, 0, enemy.goei[0], TRUE);
+			DrawRotaGraph(enemy.goeiX[i + 8], enemy.goeiY[i + 8], 2.0f, 0, enemy.goei[0], TRUE);
+		}
+		if (i < 4) {
+			DrawRotaGraph(enemy.bossX[i], enemy.bossY[i], 2.0f, 0, enemy.boss[0], TRUE);
+		}
+	}
+}
+
 //ゲーム画面
 void Game() {
 	int Green = GetColor(0, 255, 0); //色の設定
 	int timecnt = 0;	//60フレームカウント
 	int graphflg = 0;
+	int testcnt = 0;
 
 	srand((unsigned)time(NULL));
 
@@ -111,16 +158,16 @@ void Game() {
 		enemy.zakoY[i + 10] = 250;
 		if (i < 8) {
 			enemy.goeiX[i] = 150 + i * 50;
-			enemy.goeiY[i] = 150;
+			enemy.goeiY[i] = 100;
 			enemy.goeiX[i + 8] = 150 + i * 50;
-			enemy.goeiY[i + 8] = 100;
+			enemy.goeiY[i + 8] = 150;
 		}
 		if (i < 4) {
 			enemy.bossX[i] = 250 + i * 50;
 			enemy.bossY[i] = 50;
 		}
 	}
-
+	/*
 	for (int i = 0; i < 20; i++) {
 		enemy.zakoatk[i] = 0;
 		if (i < 16) {
@@ -130,11 +177,17 @@ void Game() {
 			enemy.bossatk[i] = 0;
 		}
 	}
-
+	*/
 	for (int i = 0; i < 20; i++) {
 		enemy.zakoatk[i] = rand() % 2;
+		if (enemy.zakoatk[i] == 1) {
+			testcnt++;
+		}
 		if (i < 16) {
-			enemy.goeiatk[i] = rand() % 2;
+			//enemy.goeiatk[i] = rand() % 2;
+		}
+		if (i < 8) {
+			enemy.goeiatk2[i] = 0;
 		}
 		if (i < 4) {
 			enemy.bossatk[i] = rand() % 2;
@@ -148,13 +201,32 @@ void Game() {
 
 		//FPSの表示
 		DrawFormatString(800, 0, Green, "FPS %.1f", mFps);
-		DrawFormatString(800, 50, Green, "all %d\nzako %d\ngoei %d\nboss %d\nflg %d\n", enemy.all, enemy.zakoX[0], enemy.goeiX[0], enemy.bossX[0], graphflg);
+		//DrawFormatString(800, 50, Green, "all %d\nzako %d\ngoei %d\nboss %d\nflg %d\n", enemy.all, enemy.zakoX[0], enemy.goeiX[0], enemy.bossX[0], graphflg);
+		for (int i = 0; i < 20; i++) {
+			DrawFormatString(800, 50 + 20 * i, Green, "zako[ %d ] %d ", i, enemy.zakoatk[i]);
+			if (i < 8) {
+				DrawFormatString(900, 50 + 20 * i, Green, "goeiatk2[ %d ] %d ", i, enemy.goeiatk2[i]);
+			}
+		}
+		DrawFormatString(800, 700, Green, "攻撃中の敵の数 %d ", testcnt);
+
+		for (int i = 0; i < 20; i++) {
+			if (enemy.zakoatk[i] == 1) {
+				ZakoAtk();
+			}
+			if (i < 16 && enemy.goeiatk[i] == 1) {
+				GoeiAtk();
+			}
+			if (i < 4 && enemy.bossatk[i] == 1) {
+				BossAtk();
+			}
+		}
 
 		//移動待機時間(切り替え式)
 		if (timecnt == 0) {
 			graphflg = 0;
 		}
-		else if (timecnt == 60) {
+		else if (timecnt == 20) {
 			graphflg = 1;
 			if (enemy.all <= 0) {
 				enemy.speed = 10;
@@ -167,91 +239,25 @@ void Game() {
 				if (enemy.zakoatk[i] == 0) {
 					enemy.zakoX[i] += enemy.speed;
 				}
-				if (i < 16 && enemy.goeiatk[i] == 0) {
-					enemy.goeiX[i] += enemy.speed;
-				}
 				if (i < 4 && enemy.bossatk[i] == 0) {
 					enemy.bossX[i] += enemy.speed;
+				}
+				if (i < 8 && enemy.goeiatk2[i] == 1) {
+					enemy.goeiatk[i] = 0;
+					continue;
+				}
+				if (i < 16 && enemy.goeiatk[i] == 0 && enemy.goeiatk2[i] != 1) {
+					enemy.goeiX[i] += enemy.speed;
 				}
 			}
 			enemy.all += enemy.speed;
 		}
 		timecnt++;
-		if (timecnt > 120)timecnt = 0;
+		if (timecnt > 40)timecnt = 0;
 
-		for (int i = 0; i < 10; i++) {
-			//隊列時graphflgが0のとき1枚目の画像を表示
-			if (graphflg == 0) {
-				if (enemy.zakoatk[i] == 0) {
-					DrawRotaGraph(enemy.zakoX[i], enemy.zakoY[i], 2.0f, 0, enemy.zako[0], TRUE);
-				}
-				else if (enemy.zakoatk[i + 10] == 0) {
-					DrawRotaGraph(enemy.zakoX[i + 10], enemy.zakoY[i + 10], 2.0f, 0, enemy.zako[0], TRUE);
-				}
-				if (i < 8) {
-					if (enemy.goeiatk[i] == 0) {
-						DrawRotaGraph(enemy.goeiX[i], enemy.goeiY[i], 2.0f, 0, enemy.goei[0], TRUE);
-					}
-					else if (enemy.goeiatk[i + 8] == 0) {
-						DrawRotaGraph(enemy.goeiX[i + 8], enemy.goeiY[i + 8], 2.0f, 0, enemy.goei[0], TRUE);
-					}
-				}
-				if (i < 4) {
-					if (enemy.bossatk[i] == 0) {
-						DrawRotaGraph(enemy.bossX[i], enemy.bossY[i], 2.0f, 0, enemy.boss[0], TRUE);
-					}
-				}
-			}
-			//隊列時graphflgが1のとき2枚目の画像を表示
-			else if (graphflg == 1) {
-				if (enemy.zakoatk[i] == 0) {
-					DrawRotaGraph(enemy.zakoX[i], enemy.zakoY[i], 2.0f, 0, enemy.zako[1], TRUE);
-				}
-				if(enemy.zakoatk[i + 10] == 0){
-					DrawRotaGraph(enemy.zakoX[i + 10], enemy.zakoY[i + 10], 2.0f, 0, enemy.zako[1], TRUE);
-				}
-				if (i < 8) {
-					if (enemy.goeiatk[i] == 0) {
-						DrawRotaGraph(enemy.goeiX[i], enemy.goeiY[i], 2.0f, 0, enemy.goei[1], TRUE);
-					}
-					else if (enemy.goeiatk[i + 8] == 0) {
-						DrawRotaGraph(enemy.goeiX[i + 8], enemy.goeiY[i + 8], 2.0f, 0, enemy.goei[1], TRUE);
-					}
-				}
-				if (i < 4) {
-					if (enemy.bossatk[i] == 0) {
-						DrawRotaGraph(enemy.bossX[i], enemy.bossY[i], 2.0f, 0, enemy.boss[1], TRUE);
-					}
-				}
-			}
+		
+		Draw_Enemy();	//Draw_Enemyへ
 
-			//enemy.zakoatkが1のときザコの攻撃
-			if (enemy.zakoatk[i] == 1) {
-				DrawRotaGraph(enemy.zakoX[i], enemy.zakoY[i], 2.0f, 0, enemy.zako[1], TRUE);
-				enemy.zakoY[i] += 2;
-			}
-			else if (enemy.zakoatk[i + 10] == 1) {
-				DrawRotaGraph(enemy.zakoX[i + 10], enemy.zakoY[i + 10], 2.0f, 0, enemy.zako[1], TRUE);
-				enemy.zakoY[i + 10] += 2;
-			}
-			//enemy.goeiatkが1のときゴエイの攻撃
-			if (enemy.goeiatk[i] == 1) {
-				DrawRotaGraph(enemy.goeiX[i], enemy.goeiY[i], 2.0f, 0, enemy.goei[1], TRUE);
-				enemy.goeiY[i] += 2;
-			}
-			else if (enemy.goeiatk[i + 8] == 1) {
-				DrawRotaGraph(enemy.goeiX[i + 8], enemy.goeiY[i + 8], 2.0f, 0, enemy.goei[1], TRUE);
-				enemy.goeiY[i + 8];
-			}
-			//enemy.bossatkが1のときボスギャラガの攻撃
-			/*
-			if (enemy.bossatk[i] == 1) {
-				DrawRotaGraph(enemy.bossX[i], enemy.bossY[i], 2.0f, 0, enemy.boss[1], TRUE);
-				enemy.bossY[i] += 2;
-			}
-			*/
-
-		}
 		Wait();
 	}
 }
