@@ -1,2 +1,9 @@
-﻿  roop.cpp
-  seisakuTest.vcxproj -> C:\Users\nwuser.DA\Documents\サークル課題＆勉強会\seisakuTest\Debug\seisakuTest.exe
+﻿  EnemyAtk.cpp
+C:\Users\nwuser.DA\Documents\gyalaga\seisakuTest\EnemyAtk.cpp(31,12): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\nwuser.DA\Documents\gyalaga\seisakuTest\EnemyAtk.cpp(19,9): warning C4101: 'rad02': ローカル変数は 1 度も使われていません。
+C:\Users\nwuser.DA\Documents\gyalaga\seisakuTest\EnemyAtk.cpp(45,23): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\nwuser.DA\Documents\gyalaga\seisakuTest\EnemyAtk.cpp(45,16): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\nwuser.DA\Documents\gyalaga\seisakuTest\EnemyAtk.cpp(46,25): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\nwuser.DA\Documents\gyalaga\seisakuTest\EnemyAtk.cpp(46,16): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\nwuser.DA\Documents\gyalaga\seisakuTest\EnemyAtk.cpp(70,47): warning C4007: 'WinMain': '__stdcall' でなければなりません。
+  seisakuTest.vcxproj -> C:\Users\nwuser.DA\Documents\gyalaga\seisakuTest\Debug\seisakuTest.exe
