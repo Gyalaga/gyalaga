@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "bg.h"
+#include "Score.h"
 #include "SceneMgr.h"
 #include "bgm.h"
 #define PI 3.14
@@ -66,11 +67,12 @@
 		/************************************************************************************************************/
 		// while(裏画面を表画面に反映, メッセージ処理, 画面クリア)
 		while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
-		{
+		{							
 			// 画面を初期化
 			ClearDrawScreen();
 			bg_All();
 			Enemy_all();
+			Score_Draw();
 			if (keyflg == 0)
 			{
 				// 右を押していたら右に進む
