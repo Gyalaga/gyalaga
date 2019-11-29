@@ -1,7 +1,2 @@
-﻿  Player.cpp
-C:\Users\nwuser.DA\Desktop\Project1 - コピー\Player.cpp(143,26): warning C4805: '==': 演算中の 'int' 型と 'bool' 型の混用は安全ではありません
-C:\Users\nwuser.DA\Desktop\Project1 - コピー\Player.cpp(266,25): warning C4805: '==': 演算中の 'int' 型と 'bool' 型の混用は安全ではありません
-C:\Users\nwuser.DA\Desktop\Project1 - コピー\Player.cpp(28,38): warning C4101: 'sy2': ローカル変数は 1 度も使われていません。
-C:\Users\nwuser.DA\Desktop\Project1 - コピー\Player.cpp(31,7): warning C4101: 'Simage': ローカル変数は 1 度も使われていません。
-C:\Users\nwuser.DA\Desktop\Project1 - コピー\Player.cpp(28,27): warning C4101: 'sx2': ローカル変数は 1 度も使われていません。
-  Project1.vcxproj -> C:\Users\nwuser.DA\Desktop\Project1 - コピー\Debug\Project1.exe
+﻿  Menu.cpp
+  Project1.vcxproj -> C:\Users\nwuser.DA\Desktop\Project1 - 神\Debug\Project1.exe

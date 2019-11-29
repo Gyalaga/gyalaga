@@ -15,7 +15,7 @@ void SE_draw() {
 
 void BGM_draw() {
 
-	static int MAIN_BGM = LoadSoundMem("BGM&SE/08 I“V‚É¿‚·.mp3");
+	static int MAIN_BGM = LoadSoundMem("BGM&SE/Ave Maris Stella.mp3");
 
 	PlaySoundMem(MAIN_BGM, DX_PLAYTYPE_LOOP); // ƒƒCƒ“‚ÌBGM
 

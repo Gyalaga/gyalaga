@@ -1,5 +1,9 @@
 #pragma once
 
+static int PL1, PL2;
+static int PL1UP, PL2UP, HISCORE;
+static int NAMUCO;
+
 //çXêV
 void Menu_Update();
 

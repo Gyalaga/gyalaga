@@ -55,13 +55,18 @@ void Menu_Draw() {
 	SetFontThickness(8);
 	ChangeFont("font/PixelMplus12-Bold.ttf");
 
-		DrawString(350, GAME_Y, "1PLAYER", GetColor(255, 255, 255));
-		DrawString(350, GAME2_Y, "2PLAYER", GetColor(255, 255, 255));
-		DrawString(325, SCORE_Y, "HI--SCORE", GetColor(255, 255, 255));
-		DrawString(100, ONEUP_Y, "1UP", GetColor(255, 255, 255));
-		DrawString(675, TWOUP_Y, "2UP", GetColor(255, 255, 255));
-		DrawString(250, NANKA_Y, "1981　1985　NAMCO　LTD", GetColor(255, 255, 255));
-		DrawString(250, NANKA2_Y, "ALL　RIGHTS　RESERVED", GetColor(255, 255, 255));
+	PL1 = LoadGraph("画像/PLAYER1.png"); PL2 = LoadGraph("画像/PLAYER2.png");
+	PL1UP = LoadGraph("画像/1UP.png");  PL2UP = LoadGraph("画像/2UP.png");
+	HISCORE = LoadGraph("画像/HISCORE.png");
+	NAMUCO = LoadGraph("画像/NAMUCO.png");
+
+		DrawGraph(300, GAME_Y, PL1, TRUE);
+		DrawGraph(300, GAME2_Y, PL2,TRUE);
+		DrawGraph(300, SCORE_Y, HISCORE, TRUE);
+		DrawGraph(100, ONEUP_Y, PL1UP, TRUE);
+		DrawGraph(625, TWOUP_Y, PL2UP, TRUE);
+		DrawGraph(150, NANKA_Y, NAMUCO, TRUE);
+		
 
 		static int title = LoadGraph("画像/Gyaraga.jpg");
 		DrawGraph(250, TITLE_Y, title, TRUE);
