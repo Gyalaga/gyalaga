@@ -1,200 +1,276 @@
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 #include "DxLib.h"
 #include "Enemy.h"
-#include "Player.h"
-#define PI 3.14	//円周率
-#define ENEMYSPEED 2	//敵の移動速度
 
-//エネミーの更新
+#define PI			3.14	//円周率
+#define ENEMYSPEED	2		//敵の移動速度
+
+
+
+/*
+関数名		:Enemy_all
+処理の概要	:エネミーの処理の全体
+引数		:なし
+返却値		:なし
+備考		:大幅に記述を変更する際に削除予定
+*/
+
+void Enemy_all() {
+
+	//enemyの初期化
+	if (enemyInit == true) {
+		Enemy_Init();
+		enemyInit = false;
+	}
+
+	Enemy_Update();		//enemyの更新
+
+	Enemy_Draw();		//enemyの描画
+}
+
+/*
+関数名		:Enemy_Update
+処理の概要	:エネミーの更新
+引数		:なし
+返却値		:なし
+備考		:なし
+*/
+
 void Enemy_Update() {
 
-	static int tmppx = 0;
-	static int tmppy = 0;
-	static float tmpex = 0;
-	static float tmpey = 0;
-	static int dangle = 0;	//方向転換に必要な角度
-	static int rangle = 0;	//回転に必要な角度
-	static double rad;	//ラジアン値
-	static double rad02;	//ラジアン値
-	static double rad03;	//ラジアン値
-	static double rad04;	//ラジアン値
-	static bool settmp = true;
-	static bool direction = false;	//方向転換flg
-	static bool move = false;
-	static bool rotation = false;
-	static bool back = false;
-	static bool backx = false;
-	static bool backy = false;
+	DrawString(0, 450, "Enemy_Updateが正常に稼働しました", GetColor(255, 255, 255));
 
-	//Enemyの初期化
-	if (enemyinit == true) {
+	static bool zakoAllAtk = false;		//ザコが攻撃してるか判定フラグ
+	static bool goeiAllAtk = false;		//ゴエイが攻撃してるか判定フラグ
+	static bool bossAllAtk = false;		//ボスギャラガが攻撃してるか判定フラグ
 
-		Enemy_Init();
-		enemyinit = false;
-	}
+	srand((unsigned)time(NULL));		//乱数を固定値にしないために
 
-	if (CheckHitKey(KEY_INPUT_TAB) != 0) {
-		zako[0].atk = true;
-	}
-
+	//攻撃フラグがtrueの時、それぞれの関数へ
 	for (int i = 0; i < 20; i++) {
 
-		//zako[i].atkがtrueの場合
+		//ザコの攻撃フラグがtrueの時ザコの攻撃処理を行う、判定フラグをtrueへ
 		if (zako[i].atk == true) {
 
-			//ザコの攻撃に必要な変数の初期化
-			if (settmp == true) {
-				tmppx = playerX;
-				tmppy = playerY;
-				tmpex = zako[i].x;
-				tmpey = zako[i].y;
-				dangle = 360;
-				direction = true;
-				settmp = false;
-			}
+			zakoAllAtk = Enemy_Zako(i);
+		}
+		//ゴエイの攻撃フラグがtrueの時ゴエイの攻撃処理を行う、判定フラグをtrueへ
+		if (i < 16 && goei[i].atk == true) {
 
-			//敵のほうへの方向転換
-			if (direction == true) {
+			goeiAllAtk = Enemy_Goei(i);
+		}
+		//ボスギャラガの攻撃フラグがtureの時ボスギャラガの攻撃処理を行う、判定フラグをtrueへ
+		if (i < 4 && boss[i].atk == true) {
 
-				rad = dangle * PI / 180;	//ラジアン変換
+			Enemy_Boss(i);
 
-				zako[i].x = tmpex + 40 * cos(rad);
-				zako[i].y = tmpey + 40 * sin(rad);
-
-				//180°回転したとき次の動きに移す
-				if (dangle < 180) {
-					direction = false;
-					move = true;
-				}
-
-				dangle -= ENEMYSPEED;	//角度の減少
-			}
-
-			if (move == true) {
-
-				rad02 = atan2((double)tmppy - zako[i].y, ((double)tmppx + 40) - zako[i].x);
-
-				if (zako[i].y >= tmppy) {
-
-					move = false;
-					rotation = true;
-				}
-				else {
-
-					zako[i].x += ENEMYSPEED * cos(rad02);
-					zako[i].y += ENEMYSPEED * sin(rad02);
-				}
-				DrawString(200, 150, "メニュー画面です", GetColor(255, 255, 255));
-			}
-
-			if (rotation == true) {
-
-				rad03 = rangle * PI / 180;
-
-				zako[i].x = tmppx + 40 * cos(rad03);
-				zako[i].y = tmppy + 40 * sin(rad03);
-
-				if (rangle >= 150) {
-					rotation = false;
-					back = true;
-				}
-
-				rangle += ENEMYSPEED;
-
-			}
-
-			if (back == true) {
-
-				rad04 = atan2((double)tmpey - zako[i].y, (double)tmpex - zako[i].x);
-
-				if (zako[i].y < tmpey) {
-					back = false;
-					zako[i].atk = false;
-					zako[i].x = tmpex;
-					zako[i].y = tmpey;
-				}
-				else {
-					zako[i].x += ENEMYSPEED * cos(rad04);
-					zako[i].y += ENEMYSPEED * sin(rad04);
-				}
-
-				/********************************************** //A案
-				if (zako[i].x < tmpex && zako[i].y < tmppy) {
-					back = false;
-					zako[i].atk = false;
-				}
-				else {
-					zako[i].x += ENEMYSPEED * cos(rad04);
-					zako[i].y += ENEMYSPEED * sin(rad04);
-				}
-				*/
-			}
-
-
+			bossAllAtk = true;
 		}
 	}
-	DrawFormatString(800, 0, GetColor(255, 255, 255), "px %d\n py %d\n ex %f\n ey %f", tmppx, tmppy, zako[0].x, zako[0].y);
+
+	//zakoAllAtkがfalseの時ザコの攻撃判定をtrueにする
+	for (int i = 0; i < 10; i++) {
+		
+		//zakoAllAtkがfalseかつzako[i].onAcitveがtrueの時zako[0～9]の攻撃フラグをtrueにする
+		if (zakoAllAtk == false && zako[i].onActive == true) {
+			zako[rand() % 10].atk = true;
+			break;
+		}
+		//zako[i].onActiveがfalseかつiが9未満の時continueする
+		else if (zako[i].onActive == false && i < 9) {
+			continue;
+		}
+		//iが9までcontinueされたときにzako[10～19]の攻撃フラグをtureにする
+		else if(zakoAllAtk == false){
+
+			zako[rand() % 10 + 10].atk = true;
+		}
+	}
+
+	goei[8].atk = true;
+	boss[0].atk = true;
 }
 
-//エネミーの描画
+/*
+関数名		:Enemy_Zako
+処理の概要	:ザコの攻撃時の処理
+引数		:なし
+返却値		:なし
+備考		:true or false
+*/
+
+bool Enemy_Zako(int zakoAtk) {
+	
+	static int test_Zvy = ENEMYSPEED;
+
+	DrawString(0, 500, "Enemy_Zakoが正常に稼働しました", GetColor(255, 255, 255));
+
+	if (zako[zakoAtk].y < 250) {
+		test_Zvy = ENEMYSPEED;
+	}
+
+	if (zako[zakoAtk].y > 750) {
+		test_Zvy = -ENEMYSPEED;
+	}
+
+	zako[zakoAtk].y += test_Zvy;
+
+	return true;
+}
+
+/*
+関数名		:Enemy_Goei
+処理の概要	:ゴエイの攻撃時の処理
+引数		:なし
+返却値		:なし
+備考		:true or false
+*/
+
+bool Enemy_Goei(int goeiAtk) {
+
+	DrawString(0, 550, "Enemy_Goeiが正常に稼働しました", GetColor(255, 255, 255));
+
+	static int test_Gvy = ENEMYSPEED;
+
+	if (goei[goeiAtk].y > 800) {
+		goei[goeiAtk].y = -30;
+	}
+
+	goei[goeiAtk].y += test_Gvy;
+
+	return true;
+}
+
+/*
+関数名		:Enemy_Boss
+処理の概要	:ボスギャラガの攻撃時の処理
+引数		:なし
+返却値		:なし
+備考		:true or false
+*/
+
+bool Enemy_Boss(int bossAtk) {
+
+	DrawString(0, 600, "Enemy_Bossが正常に稼働しました", GetColor(255, 255, 255));
+
+	return true;
+}
+
+/*
+関数名		:Enemy_Draw
+処理の概要	:enemyの描画
+引数		:なし
+返却値		:なし
+備考		:なし
+*/
+
 void Enemy_Draw() {
+
+	DrawString(0, 400, "Enemy_Drawが正常に稼働しています", GetColor(255, 255, 255));
 
 	for (int i = 0; i < 20; i++) {
 
-		DrawRotaGraph((int)zako[i].x, (int)zako[i].y, 2.0f, 0, zako[i].image, TRUE);	//ザコの描画
-		if (i < 16) {
-
-			DrawRotaGraph(goei[i].x, goei[i].y, 2.0f, 0, goei[i].image, TRUE);	//ゴエイの描画
+		//ザコの描画
+		if (zako[i].onActive == true) {
+			
+			DrawRotaGraph(zako[i].x, zako[i].y, 2.0f, 0, zako[i].image[0], TRUE);
 		}
-		if (i < 4) {
-			DrawRotaGraph(boss[i].x, boss[i].y, 2.0f, 0, boss[i].image, TRUE);	//ボスギャラガの描画
+
+		//ゴエイの描画
+		if (i < 16 && goei[i].onActive == true) {
+
+			DrawRotaGraph(goei[i].x, goei[i].y, 2.0f, 0, goei[i].image[0], TRUE);
+		}
+
+		//ボスギャラガの描画
+		if (i < 4 && boss[i].onActive == true) {
+
+			DrawRotaGraph(boss[i].x, boss[i].y, 2.0f, 0, boss[i].image[0], TRUE);
 
 		}
 	}
 }
 
-//エネミーの初期化
+/*
+関数名		:Enemy_Init
+処理の概要	:enemyの初期化
+引数		:なし
+返却値		:なし
+備考		:なし
+*/
+
 void Enemy_Init() {
+
+	static int zakoInterval;	//ザコの間隔
+	static int goeiInterval;	//ゴエイの間隔
+	static int bossInterval;	//ボスギャラガの間隔
 
 	LoadDivGraph("画像/Galaga_OBJ_enemy.png", 50, 5, 10, 17, 18, enemyImage);	//敵キャラをenemy.Imageに追加
 
-	//ザコの初期座標
-	for (int i = 0; i < 10; i++) {
-		zako[i].x = 100 + i * 50;
-		zako[i].y = 250;
-		zako[i + 10].x = 100 + i * 50;
-		zako[i + 10].y = 200;
-		zako[i].image = enemyImage[0];
-		zako[i + 10].image = enemyImage[0];
-		zako[i].atk = false;
-		zako[i + 10].atk = false;
+	//初期化処理全体
+	for (int i = 0; i < 20; i++) {
+
+		//ザコの間隔の計算とy座標の初期化
+		if (i < 10) {
+
+			zakoInterval = i * 35;
+			zako[i].y = 250;
+		}
+		else {
+
+			zakoInterval = (i - 10) * 35;
+			zako[i].y = 200;
+		}
+
+		zako[i].x = 225 + zakoInterval;		//ザコのx座標の初期化
+		zako[i].atk = false;				//ザコの攻撃フラグの初期化
+		zako[i].onActive = true;			//ザコの表示フラグの初期化
+
+		//画像を全体から個別へ
+		for (int j = 0; j < 5; j++) {
+			zako[i].image[j] = enemyImage[0 + j];
+		}
+
+		//ゴエイの初期化
+		if (i < 18) {
+
+			//ゴエイの間隔の計算とy座標の初期化
+			if (i < 8) {
+
+				goeiInterval = i * 35;
+				goei[i].y = 150;
+			}
+			else {
+
+				goeiInterval = (i - 8) * 35;
+				goei[i].y = 100;
+			}
+
+			goei[i].x = 260 + goeiInterval;		//ゴエイのx座標の初期化
+			goei[i].atk = false;				//ゴエイの攻撃フラグの初期化
+			goei[i].onActive = true;			//ゴエイの表示フラグの初期化
+
+			//画像を全体から個別へ
+			for (int j = 0; j < 5; j++) {
+				goei[i].image[j] = enemyImage[5 + j];
+			}
+		}
+
+		//ボスギャラガの初期化
+		if (i < 4) {
+
+			bossInterval = i * 35;				//ボスギャラガの間隔の計算
+			boss[i].y = 50;						//ボスギャラガのy座標の初期化
+			boss[i].x = 330 + bossInterval;		//ボスギャラガのx座標の初期化
+			boss[i].atk = false;				//ボスギャラガの攻撃フラグの初期化
+			boss[i].onActive = true;			//ボスギャラガの表示フラグの初期化
+
+			//画像を全体から個別へ
+			for (int j = 0; j < 10; j++) {
+				boss[i].image[j] = enemyImage[10 + j];
+			}
+		}
 	}
-
-	//ゴエイの初期座標
-	for (int i = 0; i < 8; i++) {
-		goei[i].x = 150 + i * 50;
-		goei[i].y = 150;
-		goei[i + 8].x = 150 + i * 50;
-		goei[i + 8].y = 100;
-		goei[i].image = enemyImage[5];
-		goei[i + 8].image = enemyImage[5];
-	}
-
-	//ボスギャラガの初期座標
-	for (int i = 0; i < 4; i++) {
-		boss[i].x = 250 + i * 50;
-		boss[i].y = 50;
-		boss[i].image = enemyImage[10];
-	}
-}
-
-void Load_Player(int lpx, int lpy) {
-	playerX = lpx;
-	playerY = lpy;
-}
-
-void Enemy_all()
-{
-	Enemy_Update();
-	Enemy_Draw();
 }
