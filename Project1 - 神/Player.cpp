@@ -6,6 +6,7 @@
 #include "bg.h"
 #include "SceneMgr.h"
 #include "bgm.h"
+#include "Score.h"
 #define PI 3.14
 #define SHOT 2
 	void Player_Update() {
@@ -71,6 +72,7 @@
 			ClearDrawScreen();
 			bg_All();
 			Enemy_all();
+			Score_Draw();
 			if (keyflg == 0)
 			{
 				// ‰E‚ğ‰Ÿ‚µ‚Ä‚¢‚½‚ç‰E‚Éi‚Ş
