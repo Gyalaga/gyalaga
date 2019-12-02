@@ -1,4 +1,15 @@
-﻿  Score.cpp
-C:\Users\nwuser.DA\Documents\gyalaga\Project1 - 神\Score.cpp(48,1): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+﻿  Game.cpp
+  Menu.cpp
+  Player.cpp
+C:\Users\nwuser.DA\Documents\gyalaga\Project1 - 神\Player.cpp(146,26): warning C4805: '==': 演算中の 'int' 型と 'bool' 型の混用は安全ではありません
+C:\Users\nwuser.DA\Documents\gyalaga\Project1 - 神\Player.cpp(269,25): warning C4805: '==': 演算中の 'int' 型と 'bool' 型の混用は安全ではありません
+C:\Users\nwuser.DA\Documents\gyalaga\Project1 - 神\Player.cpp(30,38): warning C4101: 'sy2': ローカル変数は 1 度も使われていません。
+C:\Users\nwuser.DA\Documents\gyalaga\Project1 - 神\Player.cpp(33,7): warning C4101: 'Simage': ローカル変数は 1 度も使われていません。
+  Score.cpp
+C:\Users\nwuser.DA\Documents\gyalaga\Project1 - 神\Player.cpp(30,27): warning C4101: 'sx2': ローカル変数は 1 度も使われていません。
+C:\Users\nwuser.DA\Documents\gyalaga\Project1 - 神\Score.cpp(43,1): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  main.cpp
+  コードを生成中...
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(208): message : 'fopen' の宣言を確認してください
+  LINK : 前回のインクリメンタル リンクで C:\Users\nwuser.DA\Documents\gyalaga\Project1 - 神\Debug\Project1.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
   Project1.vcxproj -> C:\Users\nwuser.DA\Documents\gyalaga\Project1 - 神\Debug\Project1.exe
