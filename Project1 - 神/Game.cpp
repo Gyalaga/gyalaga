@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "SceneMgr.h"
+#include "Score.h"
 #include "Keyborad2.h"
 #include "DxLib.h"
 #include "bgm.h"

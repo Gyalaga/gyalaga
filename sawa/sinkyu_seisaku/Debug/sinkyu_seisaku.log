@@ -1,9 +1,0 @@
-﻿  Source.cpp
-C:\Users\nwuser\Desktop\sinkyu_seisaku\Source.cpp(58,6): warning C4101: 'Simage': ローカル変数は 1 度も使われていません。
-C:\Users\nwuser\Desktop\sinkyu_seisaku\Source.cpp(57,6): warning C4101: 'sf2': ローカル変数は 1 度も使われていません。
-C:\Users\nwuser\Desktop\sinkyu_seisaku\Source.cpp(55,14): warning C4101: 'sy': ローカル変数は 1 度も使われていません。
-C:\Users\nwuser\Desktop\sinkyu_seisaku\Source.cpp(68,11): warning C4101: 'epy': ローカル変数は 1 度も使われていません。
-C:\Users\nwuser\Desktop\sinkyu_seisaku\Source.cpp(55,6): warning C4101: 'sx': ローカル変数は 1 度も使われていません。
-C:\Users\nwuser\Desktop\sinkyu_seisaku\Source.cpp(68,6): warning C4101: 'epx': ローカル変数は 1 度も使われていません。
-C:\Users\nwuser\Desktop\sinkyu_seisaku\Source.cpp(56,6): warning C4101: 'sf': ローカル変数は 1 度も使われていません。
-  sinkyu_seisaku.vcxproj -> C:\Users\nwuser\Desktop\sinkyu_seisaku\Debug\sinkyu_seisaku.exe
