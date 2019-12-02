@@ -7,7 +7,7 @@ static int y = 0;
 
 void bg_Draw() {
 
-	static int siro = LoadGraph("‰æ‘œ/siro.jpg");
+	static int siro = LoadGraph("‰æ‘œ/kuro.jpg");
 	static int haikei1 = LoadGraph("‰æ‘œ/bg2.png");
 	static int haikei2 = LoadGraph("‰æ‘œ/bg3.png");
 	static int haikei3 = LoadGraph("‰æ‘œ/bg.pmg");
