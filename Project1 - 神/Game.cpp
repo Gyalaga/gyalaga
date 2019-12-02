@@ -27,6 +27,4 @@ void Game_Draw() {
 	Score_Draw();    //スコアの描画
 	Player_all();	//プレイヤーの更新
 	
-	
-
 }

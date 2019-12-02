@@ -17,11 +17,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		SetGraphMode(1100, 800, 32);
 		Keyborad();         //キーボードの更新
 
-		Score_Update();     //スコアの初期化
+		
 		SceneMgr_Update();  //更新
 		bg_All();           //背景描画
 		SceneMgr_Draw();    //描画
-			
+		Score_Update();     //スコアの初期化
 	}
 
 	DxLib_End(); // DXライブラリ終了処理
