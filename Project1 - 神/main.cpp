@@ -4,6 +4,8 @@
 #include "Keyborad2.h"
 #include"bg.h"
 #include"bgm.h"
+#include "Score.h"
+
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	ChangeWindowMode(TRUE), DxLib_Init(), SetDrawScreen(DX_SCREEN_BACK); //ウィンドウモード変更と初期化と裏画面設定
@@ -15,7 +17,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		SetGraphMode(1100, 800, 32);
 		Keyborad();         //キーボードの更新
 
-
+		Score_Update();     //スコアの初期化
 		SceneMgr_Update();  //更新
 		bg_All();           //背景描画
 		SceneMgr_Draw();    //描画

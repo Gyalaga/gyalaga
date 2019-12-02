@@ -2,6 +2,7 @@
 #include "SceneMgr.h"
 #include "DxLib.h"
 #include "Keyborad.h"
+#include "Score.h"
 
 int GAME_Y = 1170;    //「1PLAYER」文字のy座標
 int GAME2_Y = 1210;   //「2PLAYER」文字のy座標
@@ -100,6 +101,11 @@ void Menu_Draw() {
 		}
 		if (NANKA2_Y > 710) {
 			NANKA2_Y -= 2;
+		}
+
+		//SCOREのy座標が50に行ったら、ハイスコアを表示する
+		if (SCORE_Y == 50) {    
+			Score_Title();
 		}
 
 		int y = 0;

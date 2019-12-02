@@ -6,6 +6,7 @@
 #include "bgm.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Score.h"
 //#include"tama.h"
 
 //更新
@@ -17,10 +18,15 @@ void Game_Update() {
 
 //描画
 void Game_Draw() {
+	
 	DrawString(0, 0, "ゲーム画面です。", GetColor(255, 255, 255));
 	DrawString(0, 20, "Escキーを押すとメニュー画面に戻ります。", GetColor(255, 255, 255));
 	Keysecond();
 	//tama_ALL();
+	Score_Save();     //スコアの保存
+	Score_Draw();    //スコアの描画
 	Player_all();	//プレイヤーの更新
+	
+	
 
 }

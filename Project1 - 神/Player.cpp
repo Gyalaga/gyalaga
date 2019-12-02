@@ -7,6 +7,7 @@
 #include "Score.h"
 #include "SceneMgr.h"
 #include "bgm.h"
+#include "Score.h"
 #define PI 3.14
 #define SHOT 2
 	void Player_Update() {
