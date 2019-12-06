@@ -73,7 +73,7 @@
 			ClearDrawScreen();
 			bg_All();
 			Enemy_all();
-			Score_Draw();
+
 			if (keyflg == 0)
 			{
 				// 右を押していたら右に進む
@@ -345,7 +345,7 @@
 
 			if (eflg == 0)DrawRotaGraph(ex, ey, 2.0, PI / 180 * 0, enemy[10], TRUE);
 			/*********************************************************************************************************/
-
+			Score_Draw();
 		}//whlie文の終わり
 	}
 	void Player_all()
