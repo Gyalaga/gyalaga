@@ -56,10 +56,12 @@ void Menu_Draw() {
 	SetFontThickness(8);
 	ChangeFont("font/PixelMplus12-Bold.ttf");
 
-	PL1 = LoadGraph("画像/PLAYER1.png"); PL2 = LoadGraph("画像/PLAYER2.png");
-	PL1UP = LoadGraph("画像/1UP.png");  PL2UP = LoadGraph("画像/2UP.png");
-	HISCORE = LoadGraph("画像/HISCORE.png");
-	NAMUCO = LoadGraph("画像/NAMUCO.png");
+	static int PL1 = LoadGraph("画像/PLAYER1.png"); 
+	static int PL2 = LoadGraph("画像/PLAYER2.png");
+	static int PL1UP = LoadGraph("画像/1UP.png"); 
+	static int PL2UP = LoadGraph("画像/2UP.png");
+	static int HISCORE = LoadGraph("画像/HISCORE.png");
+	static int NAMUCO = LoadGraph("画像/NAMUCO.png");
 
 		DrawGraph(300, GAME_Y, PL1, TRUE);
 		DrawGraph(300, GAME2_Y, PL2,TRUE);
@@ -105,6 +107,7 @@ void Menu_Draw() {
 
 		//SCOREのy座標が50に行ったら、ハイスコアを表示する
 		if (SCORE_Y == 50) {    
+			
 			Score_Title();
 		}
 

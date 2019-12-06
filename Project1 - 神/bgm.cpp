@@ -2,8 +2,8 @@
 #include "windows.h"
 #include "SceneMgr.h"
 #include "Keyborad.h"
-#include"bg.h"
-#include"bgm.h"
+#include "bg.h"
+#include "bgm.h"
 
 void SE_draw() {
 
