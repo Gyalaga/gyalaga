@@ -40,7 +40,7 @@ void Enemy_all() {
 
 void Enemy_Update() {
 
-	DrawString(0, 450, "Enemy_Updateが正常に稼働しました", GetColor(255, 255, 255));
+	//DrawString(0, 450, "Enemy_Updateが正常に稼働しました", GetColor(255, 255, 255));
 
 	static bool zakoAllAtk = false;		//ザコが攻撃してるか判定フラグ
 	static bool goeiAllAtk = false;		//ゴエイが攻撃してるか判定フラグ
@@ -105,7 +105,7 @@ bool Enemy_Zako(int zakoAtk) {
 	
 	static int test_Zvy = ENEMYSPEED;
 
-	DrawString(0, 500, "Enemy_Zakoが正常に稼働しました", GetColor(255, 255, 255));
+	//DrawString(0, 500, "Enemy_Zakoが正常に稼働しました", GetColor(255, 255, 255));
 
 	if (zako[zakoAtk].y < 250) {
 		test_Zvy = ENEMYSPEED;
@@ -130,7 +130,7 @@ bool Enemy_Zako(int zakoAtk) {
 
 bool Enemy_Goei(int goeiAtk) {
 
-	DrawString(0, 550, "Enemy_Goeiが正常に稼働しました", GetColor(255, 255, 255));
+	//DrawString(0, 550, "Enemy_Goeiが正常に稼働しました", GetColor(255, 255, 255));
 
 	static int test_Gvy = ENEMYSPEED;
 
@@ -153,7 +153,7 @@ bool Enemy_Goei(int goeiAtk) {
 
 bool Enemy_Boss(int bossAtk) {
 
-	DrawString(0, 600, "Enemy_Bossが正常に稼働しました", GetColor(255, 255, 255));
+	//DrawString(0, 600, "Enemy_Bossが正常に稼働しました", GetColor(255, 255, 255));
 
 	return true;
 }
@@ -168,7 +168,7 @@ bool Enemy_Boss(int bossAtk) {
 
 void Enemy_Draw() {
 
-	DrawString(0, 400, "Enemy_Drawが正常に稼働しています", GetColor(255, 255, 255));
+	//DrawString(0, 400, "Enemy_Drawが正常に稼働しています", GetColor(255, 255, 255));
 
 	for (int i = 0; i < 20; i++) {
 
